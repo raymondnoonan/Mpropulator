@@ -1,2 +1,2 @@
 # massanari
-A simple library to help programmers populate Excel worksheets.
+A simple module to help programmers populate Excel worksheets.
