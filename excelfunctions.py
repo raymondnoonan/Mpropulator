@@ -3,7 +3,7 @@ import openpyxl
 import helpers
 
 
-class TableHelper:
+class Table:
 
     def __init__(self, path):
         self.path = path
@@ -17,3 +17,9 @@ class TableHelper:
             for row in reader:
                 self.length += 1
                 yield row
+
+    def __len__(self):
+        if self.length is None:
+            for row in self:
+                continue
+        return self.length

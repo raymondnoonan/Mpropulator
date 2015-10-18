@@ -13,3 +13,5 @@ class TestCellName(TestCase):
         self.assertRaises(Exception, helpers.cell_name, -1, 0)
         self.assertRaises(Exception, helpers.cell_name, 0, -1)
         self.assertRaises(Exception, helpers.cell_name, -1, -1)
+
+# TODO: insert cell range tests
