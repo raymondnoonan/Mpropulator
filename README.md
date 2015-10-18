@@ -2,8 +2,6 @@
 A simple module to help programmers populate Excel worksheets.
 
 TODO:
-2. Write unit tests
-
 3. Write `openpyxl` functions
 
 4. Write csv file-reading functions

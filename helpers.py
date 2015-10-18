@@ -1,4 +1,4 @@
-def column_range(start, stop, increment, chunk=1):
+def column_range(start, stop, increment=1):
     """0-indexed generator that returns a list of Excel column names. After
     every :chunk columns, the range skips over :increment columns.
 
@@ -8,26 +8,11 @@ def column_range(start, stop, increment, chunk=1):
     :param increment: number of columns you want to skip per iteration
     :return: list of Excel column names
     """
-    assert isinstance(start, int), 'Start must be int'
-    assert isinstance(stop, int), 'Stop must be int'
-    assert isinstance(increment, int), 'Increment must be int'
-
     assert start >= 0, 'Start must be >= 0'
     assert stop >= 0, 'Stop must be >= 0'
-    assert start < stop, 'Start must be less than stop'
 
-    # TODO: There must be a more pythonic way to implement chunks...
-    char = start
-    counter = 1
-    while char < stop + 1:
-        if counter == chunk:
-            char += increment
-            counter = 0
-        else:
-            char += 1
-            counter += 1
+    for char in range(start, stop, increment):
         yield column_name(char + 1)
-
 
 def column_name(col):
     """ 1-indexed function that, given a column number, returns
