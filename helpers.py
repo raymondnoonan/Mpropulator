@@ -1,26 +1,22 @@
-def column_range(start, stop, chunk=1, skip=0):
-    """0-indexed generator that returns a list of Excel column names. After
-    every :chunk columns, the range skips over :increment columns.
+def column_range(start, stop, skip_columns=None):
+    """0-indexed generator that returns a list of Excel column names, except
+    for skip_columns
 
     :param start: column index at which you begin iterating
     :param stop: column index at which you want to stop iterating
-    :param chunk: how many columns you want before a skip occurs
-    :param skip: number of columns you want to skip between chunks
+    :param skip_columns: column NAMES you'd like to skip
     :return: list of Excel column names
     """
-    assert start >= 0, 'Start must be >= 0'
-    assert stop >= 0, 'Stop must be >= 0'
+    if skip_columns is None:
+        skip_columns = []
 
-    char = start
-    counter = 1
-    while char < stop:
-        yield column_name(char + 1)
-        if counter == chunk:
-            char += (1 + skip)
-            counter = 1
-        else:
-            char += 1
-            counter += 1
+    if start < 0:
+        raise ValueError("Start must be >= 0")
+    if stop < 0:
+        raise ValueError("Stop must be >= 0")
+
+    return [column_name(i + 1) for i in range(start, stop) \
+            if column_name(i + 1) not in skip_columns]
 
 
 def column_name(col):
