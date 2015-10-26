@@ -1,0 +1,4 @@
+tabname,csv,csv_startcell,tab_startcell,skiprows,skipcols,ignore
+Tab1,(corresponding csv file name),(first data cell in csv),(first data cell in tab),"(rows to skip, e.g.: [1, 2, 3])","(cols to skip, e.g.: [""A"", ""B"", ""C""])","(ExcelPopulator will ignore if ""true"" else leave blank)"
+Tab2,,,,,,
+Tab3,,,,,,
