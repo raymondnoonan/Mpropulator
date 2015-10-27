@@ -1,5 +1,5 @@
 def column_range(start, stop, skip_columns=None):
-    """0-indexed generator that returns a list of Excel column names, except
+    """0-indexed function that returns a list of Excel column names, except
     for skip_columns
 
     :param start: column index at which you begin iterating
@@ -39,6 +39,17 @@ def column_name(col):
 
     return excel_col
 
+def row_range(start, stop, skip_rows=None):
+    """0-indexed function that returns a list of Excel row names except
+    for those in skip_rows.
+    
+    :param start: row index at which you begin iterating
+    :param stop: row index at which you want to stop iterating
+    :param skip_rows: rows you'd like to skip
+    :return: list of Excel row names
+    """
+    
+    return [row for row in range(start, stop) if row not in skip_rows]
 
 def cell_name(row, col):
     """ 0-indexed function that, given a row and column number,
