@@ -3,7 +3,8 @@ import pandas as pd
 import openpyxl
 import ast
 import string
-
+import os
+import re
 
 def populate(config, shell_xls, output_xls):
     """Populates an Excel spreadsheet from a shell.
@@ -12,6 +13,19 @@ def populate(config, shell_xls, output_xls):
     shell_xls: string of XLS file address containing Excel shell
     output_xls: string of XLS file address for output file
     """
+
+    if !os.path.isfile(config):
+        raise ValueError("config file not found");
+    if !os.path.isfile(shell_xls):
+        raise ValueError("shell not found");
+
+    pathReg = re.compile("(.+)(\/.+\..+$)")
+    path = pathReg.findall(output_xls)
+    path = path[0][0]
+    if !os.path.isdir(path):
+        raise ValueError("Output paths not found");
+
+
     workbook = openpyxl.load_workbook(shell_xls)
 
     convert_cols = {
@@ -21,9 +35,22 @@ def populate(config, shell_xls, output_xls):
     }
 
     parsed_config = pd.read_csv(config, converters=convert_cols)
-
     parsed_config['ignore'].fillna(False, inplace=True)
 
+    tabListLength = len(parse_config['tabname'])
+    tabSet = set(parse_config['tabname'])
+    if tablistLength != len(tabSet):
+        raise ValueError("Tab names are not unique. double check your config file")
+
+    wbSheetList = workbook.get_sheet_names()
+    wbSheetSet = set(wbSheetNames)
+    assert len(wbSheetList) == len(wbSheetSet)
+    if !tabset.issubset(wbSheetSet):
+        raise ValueError("There are Tabs in your config that are not in the shell")
+
+
+
+    
     for table in parsed_config.iterrows():
         if table['ignore'] is not True:
             sheet = workbook.get_sheet_by_name(table['tabname'])
