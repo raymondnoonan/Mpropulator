@@ -1,3 +1,5 @@
+import string
+
 def column_range(start, stop, skip_columns=None):
     """0-indexed function that returns a list of Excel column names, except
     for skip_columns
@@ -38,18 +40,15 @@ def column_name(col):
         excel_col = chr(mod + ord('A')) + excel_col
 
     return excel_col
-
-def row_range(start, stop, skip_rows=None):
-    """0-indexed function that returns a list of Excel row names except
-    for those in skip_rows.
     
-    :param start: row index at which you begin iterating
-    :param stop: row index at which you want to stop iterating
-    :param skip_rows: rows you'd like to skip
-    :return: list of Excel row names
-    """
-    
-    return [row for row in range(start, stop) if row not in skip_rows]
+def col_to_number(col):
+    num = 0
+    for c in col:
+        if c in string.ascii_letters:
+            num = num * 26 +  (ord(c.upper()) - ord('A')) + 1
+        else:
+            raise ValueError("Input had characters other than ASCII letters")
+    return num
 
 def cell_name(row, col):
     """ 0-indexed function that, given a row and column number,
