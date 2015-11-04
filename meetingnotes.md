@@ -61,3 +61,17 @@ Sam:
 Ray:
   - skip_rows
   - Table functions
+
+## 11/4/2015 ##
+
+(Ray accidentally deleted his original copy of the notes for this meeting; these are from memory.)
+
+Ray, Sam, and Franco agreed that `populate()` was getting too large and that it should be modularized. They agreed that the function should be split up into roughly these different ones:
+
+- Validate `populate()` input
+- Read in config file
+- Validate config file
+
+F showed R and S a little bit of SAS's ability to run python through the command prompt. F said that Mpropulator's next feature should be to support this by creating a function (or modifying `populate()`) that writes tables without a config file so that SAS programmers can use it more easily. S noted that another feature should be reading directly from SAS datasets and writing to Word documents.
+
+Also, Ray needs to document `col_to_number`.
