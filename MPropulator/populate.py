@@ -16,9 +16,9 @@ def populate(config, shell_xls, output_xls=None):
                 if output_xls is not specified, overwrite shell_xls
     """
 
-    if !os.path.isfile(config):
+    if not os.path.isfile(config):
         raise ValueError("config file not found");
-    if !os.path.isfile(shell_xls):
+    if not os.path.isfile(shell_xls):
         raise ValueError("shell not found");
 
     if output_xls == None:
@@ -28,7 +28,7 @@ def populate(config, shell_xls, output_xls=None):
     pathReg = re.compile("(.+)(\/.+\..+$)")
     path = pathReg.findall(output_xls)
     path = path[0][0]
-    if !os.path.isdir(path):
+    if not os.path.isdir(path):
         raise ValueError("Output paths not found");
 
     workbook = openpyxl.load_workbook(shell_xls)
@@ -46,7 +46,7 @@ def populate(config, shell_xls, output_xls=None):
     wbSheetList = workbook.get_sheet_names()
     wbSheetSet = set(wbSheetNames)
     assert len(wbSheetList) == len(wbSheetSet)
-    if !tabset.issubset(wbSheetSet):
+    if not tabset.issubset(wbSheetSet):
         raise ValueError("There are Tabs in your config that are not in the shell")
 
     
