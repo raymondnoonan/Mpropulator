@@ -21,6 +21,7 @@ def populate(config, shell_xls, output_xls):
     }
 
     parsed_config = pd.read_csv(config, converters=convert_cols)
+
     parsed_config['ignore'].fillna(False, inplace=True)
 
     for table in parsed_config.iterrows():
