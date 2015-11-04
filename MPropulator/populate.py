@@ -16,6 +16,7 @@ def populate(config, shell_xls, output_xls=None):
                 if output_xls is not specified, overwrite shell_xls
     """
 
+    # TODO: move to validate populate input function
     if not os.path.isfile(config):
         raise ValueError("config file not found");
     if not os.path.isfile(shell_xls):
@@ -33,6 +34,7 @@ def populate(config, shell_xls, output_xls=None):
 
     workbook = openpyxl.load_workbook(shell_xls)
 
+    # Move to read config function
     convert_cols = {
         'csv_startcell': ast.literal_eval,
         'skiprows': ast.literal_eval,
@@ -40,6 +42,7 @@ def populate(config, shell_xls, output_xls=None):
     }
 
     parsed_config = pd.read_csv(config, converters=convert_cols)
+    # Todo Validate Config File Function
     parsed_config['ignore'].fillna(False, inplace=True)
     tabSet = set(parse_config['tabname'])
 
@@ -51,7 +54,6 @@ def populate(config, shell_xls, output_xls=None):
 
     
     for enum, table in parsed_config.iterrows():
-        # TODO this is going to never resolve to True becausethe value is never = TRUE
         if table['ignore'] is not True:
             sheet = workbook.get_sheet_by_name(table['tabname'])
 
@@ -61,6 +63,7 @@ def populate(config, shell_xls, output_xls=None):
 
             table_data = pd.read_csv(table['csv'], skiprows=csv_start_row-1)
 
+            csv_start_col = helpers.col_to_numer(csv_start_col)
             num_cols = table_data.shape[1]
             cols_to_drop = [x for x in range(0, num_cols - csv_start_col)]
 
