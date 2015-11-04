@@ -36,19 +36,13 @@ def populate(config, shell_xls, output_xls):
 
     parsed_config = pd.read_csv(config, converters=convert_cols)
     parsed_config['ignore'].fillna(False, inplace=True)
-
-    tabListLength = len(parse_config['tabname'])
     tabSet = set(parse_config['tabname'])
-    if tablistLength != len(tabSet):
-        raise ValueError("Tab names are not unique. double check your config file")
 
     wbSheetList = workbook.get_sheet_names()
     wbSheetSet = set(wbSheetNames)
     assert len(wbSheetList) == len(wbSheetSet)
     if !tabset.issubset(wbSheetSet):
         raise ValueError("There are Tabs in your config that are not in the shell")
-
-
 
     
     for table in parsed_config.iterrows():
