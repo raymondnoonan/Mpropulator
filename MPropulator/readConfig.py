@@ -14,7 +14,7 @@ def readConfig(config):
     and validates the inputs and outputs of
     this file.
 
-    arg:    config is the path to the config file csv
+    args:   config is the path to the config file csv
     output: pandas dataframe that is a parsed and prepped
             config file.
     '''
