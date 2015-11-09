@@ -77,6 +77,9 @@ def populate(config, shell_xls, output_xls=None):
 
     workbook.save(output_xls)
 
+    # change back to old path
+    os.chdir(tempPath)
+
 def sepPath(path):
     '''
     Separates out filename from path.
