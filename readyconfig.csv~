@@ -1,0 +1,6 @@
+tabname,csv,csv_startcell,tab_startcell,skiprows,skipcols,ignore
+Tab1,mb58.csv,"(0, 3)",B4,"[7,11,15,19,23,27]","[""A"", ""B"", ""E""]",
+Tab2,housingdata.csv,"(4, 5)",B4,[7],[],
+Tab3,statedata.csv,"(1, 2)",B5,[8],"[""AA"", ""AB"", ""AD""]",TRUE
+Tab4,nationaldata.csv,"(0, 0)",B3,[6],[],TRUE
+Tab5,fhmn.csv,"(2, 0)",B5,[8],"[""F"", ""G""]",
