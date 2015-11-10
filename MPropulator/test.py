@@ -33,10 +33,10 @@ class TestColumnRange(unittest.TestCase):
 
 class TestColToNumber(unittest.TestCase):
     def test_return_basic(self):
-        self.assertEqual(0, helpers.col_to_number("A"))
+        self.assertEqual(1, helpers.col_to_number("A"))
 
     def test_return_multi(self):
-        self.assertEqual(27, helpers.col_to_number("AB"))
+        self.assertEqual(28, helpers.col_to_number("AB"))
 
     def test_handle_blank(self):
         self.assertRaises(ValueError, helpers.col_to_number(""))
