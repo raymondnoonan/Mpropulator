@@ -1,11 +1,5 @@
-import helpers
 import pandas as pd
-import openpyxl
-import ast
-import string
 import os
-import re
-import warnings
 
 
 def readConfig(config):
@@ -21,19 +15,18 @@ def readConfig(config):
 
     validateConfigPath(config)
 
-    parseConfig = pd.read_csv(config);
-
+    parseConfig = pd.read_csv(config)
 
     # users enter rows to skip as 1,2,3,4 and cols to skip as A,B,C
     # we need to parse these into lists
     split = str.split
-    splitFunc = lambda x: split(x,",")
+    splitFunc = lambda x: split(x, ",")
     parseConfig['skiprows'] = map(splitFunc, parseConfig['skiprows'])
     parseConfig['skipcols'] = map(splitFunc, parseConfig['skipcols'])
 
     # in addition, for the skiprows, we want these as ints, not strings
     def makeInt(array):
-        intArray = map(int,array)
+        intArray = map(int, array)
         return intArray
 
     try:
@@ -45,7 +38,6 @@ def readConfig(config):
 
     validateConfigRead(parseConfig)
     return parseConfig
-
 
 
 def validateConfigPath(config):
@@ -63,12 +55,12 @@ def validateConfigRead(config):
     '''
     Validates the columns of the config file to make sure they are
     properly named.
-    
+
     Makes sure the values of the columns are also in order
     '''
 
-    cols = config.columns;
-    colNames = ['tabname',
+    cols = config.columns
+    colnames = ['tabname',
                 'csv',
                 'csv_startcell',
                 'tab_startcell',
@@ -77,15 +69,9 @@ def validateConfigRead(config):
                 'ignore']
 
     # check the column names
-    if not cols == colNames:
+    if not cols == colnames:
         errorVal = ''.join(["column names must be", str(colnames)])
         raise ValueError(errorVal)
 
-    checkFile = os.path.isfile;
+    checkFile = os.path.isfile
     # TODO check that each of the csv files exist
-
-
-
-
-
-
