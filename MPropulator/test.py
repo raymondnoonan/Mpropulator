@@ -30,5 +30,25 @@ class TestColumnRange(unittest.TestCase):
         self.assertEqual(column_names, list(helpers.column_range(0, 5,
                                                                  skip_cols)))
 
+
+class TestColToNumber(unittest.TestCase):
+    def test_return_basic(self):
+        self.assertEqual(0, helpers.col_to_number("A"))
+
+    def test_return_multi(self):
+        self.assertEqual(27, helpers.col_to_number("AB"))
+
+    def test_handle_blank(self):
+        pass
+
+    def test_not_letters(self):
+        self.assertRaises(ValueError, helpers.col_to_number("B45C"))
+
+    def test_handle_space(self):
+        self.assertRaises(ValueError, helpers.col_to_number("A  B"))
+
+    def test_handle_leading_space(self):
+        self.assertRaises(ValueError, helpers.col_to_number(" AB"))
+
 if __name__ == "__main__":
     unittest.main()

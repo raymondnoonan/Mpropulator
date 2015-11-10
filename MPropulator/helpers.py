@@ -56,7 +56,7 @@ def col_to_number(col):
     num = 0
     for c in col:
         if c in string.ascii_letters:
-            num = num * 26 + (ord(c.upper()) - ord('A')) + 1
+            num = num * 26 + (ord(c.upper()) - ord('A'))
         else:
             raise ValueError("Input had characters other than ASCII letters")
     return num
