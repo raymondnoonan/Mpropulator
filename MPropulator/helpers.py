@@ -44,7 +44,7 @@ def column_name(col):
 
 
 def col_to_number(col):
-    """1-indexed function that, given a column name, returns
+    """0-indexed function that, given a column name, returns
     the number of that column in excel.
 
     col: string consisting of Excel column name
@@ -53,12 +53,18 @@ def col_to_number(col):
     col_to_number("A") => 0
     col_to_number("AB") => 28
     """
+    if type(col) != str:
+        raise ValueError("Input was not a string")
+    elif not col:
+        raise ValueError("Input was empty string")
+
     num = 0
     for c in col:
         if c in string.ascii_letters:
             num = num * 26 + (ord(c.upper()) - ord('A')) + 1
         else:
             raise ValueError("Input had characters other than ASCII letters")
+    num -= 1
     assert num >= 0
     return num
 

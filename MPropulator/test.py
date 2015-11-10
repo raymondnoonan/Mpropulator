@@ -33,25 +33,25 @@ class TestColumnRange(unittest.TestCase):
 
 class TestColToNumber(unittest.TestCase):
     def test_return_basic(self):
-        self.assertEqual(1, helpers.col_to_number("A"))
+        self.assertEqual(0, helpers.col_to_number("A"))
 
     def test_return_multi(self):
-        self.assertEqual(28, helpers.col_to_number("AB"))
+        self.assertEqual(27, helpers.col_to_number("AB"))
 
     def test_handle_blank(self):
-        self.assertRaises(ValueError, helpers.col_to_number(""))
+        self.assertRaises(ValueError, helpers.col_to_number, "")
 
     def test_not_letters(self):
-        self.assertRaises(ValueError, helpers.col_to_number("B45C"))
+        self.assertRaises(ValueError, helpers.col_to_number, "B45C")
 
     def test_symbols(self):
-        self.assertRaises(ValueError, helpers.col_to_number("A~$F!"))
+        self.assertRaises(ValueError, helpers.col_to_number, "A~$F!")
 
     def test_handle_space(self):
-        self.assertRaises(ValueError, helpers.col_to_number("A  B"))
+        self.assertRaises(ValueError, helpers.col_to_number, "A  B")
 
     def test_handle_leading_space(self):
-        self.assertRaises(ValueError, helpers.col_to_number(" AB"))
+        self.assertRaises(ValueError, helpers.col_to_number, " AB")
 
 if __name__ == "__main__":
     unittest.main()
