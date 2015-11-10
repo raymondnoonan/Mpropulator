@@ -51,7 +51,7 @@ def col_to_number(col):
     return: int that corresponds to excel column name
 
     col_to_number("A") => 0
-    col_to_number("AB") => 28
+    col_to_number("AB") => 27
     """
     if type(col) != str:
         raise ValueError("Input was not a string")
