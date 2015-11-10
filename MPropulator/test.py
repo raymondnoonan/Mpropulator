@@ -53,5 +53,8 @@ class TestColToNumber(unittest.TestCase):
     def test_handle_leading_space(self):
         self.assertRaises(ValueError, helpers.col_to_number, " AB")
 
+    def test_not_string(self):
+        self.assertRaises(ValueError, helpers.col_to_number, True)
+
 if __name__ == "__main__":
     unittest.main()
