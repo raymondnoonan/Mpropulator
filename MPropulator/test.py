@@ -39,10 +39,13 @@ class TestColToNumber(unittest.TestCase):
         self.assertEqual(27, helpers.col_to_number("AB"))
 
     def test_handle_blank(self):
-        pass
+        self.assertRaises(ValueError, helpers.col_to_number(""))
 
     def test_not_letters(self):
         self.assertRaises(ValueError, helpers.col_to_number("B45C"))
+
+    def test_symbols(self):
+        self.assertRaises(ValueError, helpers.col_to_number("A~$F!"))
 
     def test_handle_space(self):
         self.assertRaises(ValueError, helpers.col_to_number("A  B"))

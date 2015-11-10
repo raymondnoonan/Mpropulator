@@ -59,6 +59,7 @@ def col_to_number(col):
             num = num * 26 + (ord(c.upper()) - ord('A'))
         else:
             raise ValueError("Input had characters other than ASCII letters")
+    assert num >= 0
     return num
 
 
