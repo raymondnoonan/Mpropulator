@@ -21,11 +21,11 @@ class TestColumnRange(TestCase):
         self.assertEqual(['A', 'B'], list(helpers.column_range(0, 2)))
 
     def test_skip_columns(self):
-        skip_columns = ['A', 'B', 'C', 'D']
-        self.assertEqual(['E'], list(helpers.column_range(0, 5, skip_columns)))
+        skip_cols = ['A', 'B', 'C', 'D']
+        self.assertEqual(['E'], list(helpers.column_range(0, 5, skip_cols)))
 
     def test_blank_skip_columns(self):
         column_names = ['A', 'B', 'C', 'D', 'E']
-        skip_columns = []
-        self.assertEqual(column_names, list(helpers.column_range(0, 5, \
-                                                                 skip_columns)))
+        skip_cols = []
+        self.assertEqual(column_names, list(helpers.column_range(0, 5,
+                                                                 skip_cols)))
