@@ -26,17 +26,54 @@ def validate_input(config, shell_xls, output_xls)
                              "paths are defined as a raw string literal"
                              "(e,g. r'your\path.csv')")
 
+def validateConfigPath(config):
+    '''
+    Validates the config path to make sure that it is csv file
+    '''
+    if not os.path.isfile(config):
+        raise ValueError("config file not found")
+
+    if not config.endswith(".csv"):
+        raise ValueError("config file is not a csv")
+
+
+def validateConfigRead(config):
+    '''
+    Validates the columns of the config file to make sure they are
+    properly named.
+
+    Makes sure the values of the columns are also in order
+    '''
+
+    cols = config.columns
+    colnames = ['tabname',
+                'csv',
+                'csv_startcell',
+                'tab_startcell',
+                'skiprows',
+                'skipcols',
+                'ignore']
+
+    # check the column names
+    if not cols == colnames:
+        errorVal = ''.join(["column names must be", str(colnames)])
+        raise ValueError(errorVal)
+
+    checkFile = os.path.isfile
+    # TODO check that each of the csv files exist
+
 
 ######################################
 # Validations for config data
 ######################################
 
-def validate_tabs(config):
+def validate_tabs(config, workbook):
     tabSet = set(config['tabname'])
     wbSheetList = workbook.get_sheet_names()
     wbSheetSet = set(wbSheetList)
     assert len(wbSheetList) == len(wbSheetSet)
     if not tabSet.issubset(wbSheetSet):
+        result = false
         raise ValueError("There are Tabs in your config"
                          "that are not in the shell")
 
@@ -48,13 +85,13 @@ def validate_cellname(cellname):
 		raise ValueError("{} is not a valid cell name".format(cell))
 
 # do we need this given that it's also being checked in readConfig.py?
-def validate_skiprows(skiprows_data):
-	if not isinstance(skiprows_data, list):
-		raise ValueError("error in {}: skiprows must be in list form".format(skiprows_data))
-	else:
+# def validate_skiprows(skiprows_data):
+# 	if not isinstance(skiprows_data, list):
+# 		raise ValueError("error in {}: skiprows must be in list form".format(skiprows_data))
+# 	else:
 
-#TODO: fill in
-def validate_skipcols(skipcols_data):
+# #TODO: fill in
+# def validate_skipcols(skipcols_data):
 
 def validate_ignore(ignore_value):
 	# What is the correct way to denote missing data?
@@ -66,8 +103,8 @@ def validate_ignore(ignore_value):
 #TODO
 def overlap(tab):
 
-
-def validate_config(config):
+def validate_config(config, workbook):
+    validate_tabs(config, workbook)
 	# apply all row-level validations
 	config['csv_startcell'].map(lambda x: validate_cellname(x))
 	config['tab_startcell'].map(lambda x: validate_cellname(x))

@@ -46,7 +46,7 @@ def populate(config, shell_xls, output_xls=None):
 
             table_data = pd.read_csv(table['csv'], skiprows=csv_start_row-1)
 
-            csv_start_col = helpers.col_to_numer(csv_start_col)
+            csv_start_col = helpers.col_to_number(csv_start_col)
             num_cols = table_data.shape[1]
             cols_to_drop = [x for x in range(0, num_cols - csv_start_col)]
 
