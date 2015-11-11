@@ -3,10 +3,9 @@ import re
 # List of validations
 # Validate config file function
 # Validate populate input (just pull from the validations at start of populate
-# 
 
-def validate_input(config, shell_xls, output_xls)
 
+def validate_input(config, shell_xls, output_xls):
     if not os.path.isfile(config):
         raise ValueError("config not found, make sure your paths are defined"
                          "as a raw string literal (e.g. r'your\path.csv') ")
@@ -25,6 +24,7 @@ def validate_input(config, shell_xls, output_xls)
             raise ValueError("Output path not found, make sure your"
                              "paths are defined as a raw string literal"
                              "(e,g. r'your\path.csv')")
+
 
 def validateConfigPath(config):
     '''
@@ -77,39 +77,29 @@ def validate_tabs(config, workbook):
         raise ValueError("There are Tabs in your config"
                          "that are not in the shell")
 
+
 def validate_cellname(cellname):
-	# This pattern will match from cell A1 to ZZ999
-	pattern = re.compile("[a-z]{1,2}[1-9][0-9]{0,2}", re.IGNORECASE)
-	match = re.search(pattern, cellname)
-	if not match:
-		raise ValueError("{} is not a valid cell name".format(cell))
+        # This pattern will match from cell A1 to ZZ999
+        pattern = re.compile("[a-z]{1,2}[1-9][0-9]{0,2}", re.IGNORECASE)
+        match = re.search(pattern, cellname)
+        if not match:
+                raise ValueError("{} is not a valid cell name".format(cell))
 
-# do we need this given that it's also being checked in readConfig.py?
-# def validate_skiprows(skiprows_data):
-# 	if not isinstance(skiprows_data, list):
-# 		raise ValueError("error in {}: skiprows must be in list form".format(skiprows_data))
-# 	else:
-
-# #TODO: fill in
-# def validate_skipcols(skipcols_data):
 
 def validate_ignore(ignore_value):
-	# What is the correct way to denote missing data?
-	if ignore_value is None:
-		return
-	else if ignore_value.lower() != "true":
-		raise ValueError('values in ignore column must be empty or "true"')
+        if not isinstance(ignore_value, bool):
+            raise ValueError('values in ignore col must be empty or True')
 
-#TODO
+# TODO
 def overlap(tab):
+        pass
+
 
 def validate_config(config, workbook):
     validate_tabs(config, workbook)
-	# apply all row-level validations
-	config['csv_startcell'].map(lambda x: validate_cellname(x))
-	config['tab_startcell'].map(lambda x: validate_cellname(x))
-	config['skiprows'].map(lambda x: validate_skiprows(x))
-	config['skipcols'].map(lambda x: validate_skipcols(x))
-	config['ignore'].map(lambda x: validate_ignore(x))
 
-
+    config['csv_startcell'].map(lambda x: validate_cellname(x))
+    config['tab_startcell'].map(lambda x: validate_cellname(x))
+    config['skiprows'].map(lambda x: validate_skiprows(x))
+    config['skipcols'].map(lambda x: validate_skipcols(x))
+    config['ignore'].map(lambda x: validate_ignore(x))
