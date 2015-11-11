@@ -3,8 +3,6 @@ import pandas as pd
 import openpyxl
 import os
 import string
-import re
-import warnings
 from writetab import write_tab
 from readConfig import readConfig
 import validations as vd
@@ -18,13 +16,13 @@ def populate(config, shell_xls, output_xls=None):
     output_xls: string of XLSX file address for output file
                 if output_xls is not specified, overwrite shell_xls
     """
-     
+
     # We temporarily change paths to config
     # file path (that's where all the output ought to be
-    tempPath = os.getcwd()
-    configPath = sepPath(config)
+    origPath = os.getcwd()
+    configPath = os.path.dirname(config)
 
-    os.chdir(configPath['path'])
+    os.chdir(configPath)
 
     # Read in all our inputs
     workbook = openpyxl.load_workbook(shell_xls)
@@ -59,17 +57,4 @@ def populate(config, shell_xls, output_xls=None):
     workbook.save(output_xls)
 
     # change back to old path
-    os.chdir(tempPath)
-
-
-def sepPath(path):
-    '''
-    Separates out filename from path.
-    Args:   path must be a raw string literal (e.g. r'this\is\your\path.csv')
-    Return: a dict list {path:"this\\is\\your",file:'\\path.csv'}
-    '''
-    pathReg = re.compile("(.+)(\\\\)(.+\..+$)")
-    parts = pathReg.findall(path)
-    returnDict = {"path": parts[0][0], "file": parts[0][2]}
-
-    return returnDict
+    os.chdir(origPath)
