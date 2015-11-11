@@ -7,6 +7,7 @@ import re
 import warnings
 from writetab import write_tab
 from readConfig import readConfig
+import validations as vd
 
 
 def populate(config, shell_xls, output_xls=None):
@@ -17,26 +18,7 @@ def populate(config, shell_xls, output_xls=None):
     output_xls: string of XLSX file address for output file
                 if output_xls is not specified, overwrite shell_xls
     """
-    # TODO: move to validate populate input function
-    if not os.path.isfile(config):
-        raise ValueError("config not found, make sure your paths are defined"
-                         "as a raw string literal (e.g. r'your\path.csv') ")
-    if not os.path.isfile(shell_xls):
-        raise ValueError("shell not found, make sure your paths are defined"
-                         "as a raw string literal (e.g. r'your\path.csv')")
-
-    if output_xls is None:
-        warnings.warn("output_xls is not specified -"
-                      "this function is overwriting shell_xls")
-        output_xls = shell_xls
-    else:
-        outputPath = sepPath(output_xls)
-
-        if not os.path.isdir(outputPath['path']):
-            raise ValueError("Output path not found, make sure your"
-                             "paths are defined as a raw string literal"
-                             "(e,g. r'your\path.csv')")
-
+     
     # We temporarily change paths to config
     # file path (that's where all the output ought to be
     tempPath = os.getcwd()
@@ -47,15 +29,7 @@ def populate(config, shell_xls, output_xls=None):
     # Read in all our inputs
     workbook = openpyxl.load_workbook(shell_xls)
     parsed_config = readConfig(configPath['file'])
-
-    # Validate the tabs in the parsed config file
-    tabSet = set(parsed_config['tabname'])
-    wbSheetList = workbook.get_sheet_names()
-    wbSheetSet = set(wbSheetList)
-    assert len(wbSheetList) == len(wbSheetSet)
-    if not tabSet.issubset(wbSheetSet):
-        raise ValueError("There are Tabs in your config"
-                         "that are not in the shell")
+    vd.validate_tabs(parsed_config)
 
     for enum, table in parsed_config.iterrows():
         if table['ignore'] is not True:

@@ -1,6 +1,6 @@
 import pandas as pd
 import os
-
+import validations as vd
 
 def readConfig(config):
     '''
