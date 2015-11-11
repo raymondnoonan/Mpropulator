@@ -75,3 +75,25 @@ Ray, Sam, and Franco agreed that `populate()` was getting too large and that it 
 F showed R and S a little bit of SAS's ability to run python through the command prompt. F said that Mpropulator's next feature should be to support this by creating a function (or modifying `populate()`) that writes tables without a config file so that SAS programmers can use it more easily. S noted that another feature should be reading directly from SAS datasets and writing to Word documents.
 
 Also, Ray needs to document `col_to_number`.
+
+## 11/11/2015 ##
+
+Franco used `split` instead of `str.split` for performance reasons and `map` instead of a `for` loop so that the code would take advantage of C.
+
+Check if skiprows is list using an assert.
+
+Is there a path extractor function so that we can avoid using franco's sepPath function?
+
+Look into pandas for way to deal with missing values
+Also do aprseConfig['skipcols'] = map(helpers.col_to_number)
+
+Check that each element in skipcols is a letter
+Convert cols in skipcols to numbers where we convert skiprows
+
+Ray will write tests for populate, write_tabs, helpers
+F will write tests for readConfig, __init__
+S will test validations
+ 
+Create bad_configX.csv with different types of errors
+
+Sam can look into concatenating errors into one big thing.
