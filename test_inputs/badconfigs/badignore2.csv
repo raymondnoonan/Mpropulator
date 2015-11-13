@@ -1,0 +1,6 @@
+tabname,csv,csv_startcell,tab_startcell,skiprows,skipcols,ignore
+Tab1,mb58.csv,A1,B4,"1, 4, 6, 8","A,B,D",TRUE
+Tab2,housingdata.csv,A1,B4,,"A,B,D",None
+Tab3,statedata.csv,A1,B4,1,N,
+Tab4,nationaldata.csv,A1,B4,1,"H, I, P",None
+Tab5,fhmn.csv,A1,B4,1,"H, I, P",

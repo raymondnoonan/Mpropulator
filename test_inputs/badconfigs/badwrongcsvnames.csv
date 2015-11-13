@@ -1,0 +1,6 @@
+tabname,csv,csv_startcell,tab_startcell,skiprows,skipcols,ignore
+Tab1,mb58.xlsx,A1,B4,"7,8,9,10","A,B,C,D",TRUE
+Tab2,statedata.csv,B2,B4,"7,8,9,10","A,B,C,D",TRUE
+Tab3,lifesavings.csv,C3,B4,1,N,
+Tab4,lifesavings.csv,D5,B4,1,"H, I, P",
+Tab5,helloworld.md,A7,B4,1,"H, I, P",
