@@ -6,7 +6,7 @@ from MPropulator import write_tab as wt
 from MPropulator import readConfig as rc
 from MPropulator import validations as vd
 from MPropulator import helpers
-
+import ipdb
 
 def populate(config, shell_xls, output_xls=None):
     """Populates an Excel spreadsheet from a shell.
@@ -21,13 +21,16 @@ def populate(config, shell_xls, output_xls=None):
     # file path (that's where all the output ought to be
     origPath = os.getcwd()
     configPath = os.path.dirname(config)
+    configPathList = config.split("\\")
+    configPathList.reverse()
+    configFile = configPathList[0]
 
-    os.chdir(configPath)
+    #os.chdir(configPath)
 
     # Read in all our inputs
     workbook = openpyxl.load_workbook(shell_xls)
-    parsed_config = rc.readConfig(configPath['file'])
-    vd.validate_tabs(parsed_config)
+    parsed_config = rc.readConfig(config)
+    vd.validate_tabs(parsed_config, workbook)
 
     for enum, table in parsed_config.iterrows():
         if table['ignore'] is not True:
@@ -37,12 +40,14 @@ def populate(config, shell_xls, output_xls=None):
             csv_start_row = int(csv_startcell.translate(None, string.letters))
             csv_start_col = csv_startcell.translate(None, string.digits)
 
-            if not os.path.isfile(table['csv']):
+            csvpath = os.path.join(configPath, table['csv'])
+            if not os.path.isfile(csvpath):
                 error = "Could not find the file %s. Make sure your config is"
                 "in the same location as your output " % table['csv']
                 raise ValueError(error)
 
-            table_data = pd.read_csv(table['csv'], skiprows=csv_start_row-1)
+            ipdb.set_trace()
+            table_data = pd.read_csv(csvpath, skiprows=csv_start_row-1)
 
             csv_start_col = helpers.col_to_number(csv_start_col)
             num_cols = table_data.shape[1]

@@ -1,5 +1,0 @@
-tabname,csv,csv_startcell,tab_startcell,skiprows,skipcols,ignore
-Sheet1,Sheet1.csv,A1,B3,"[4, 6, 8]","[""C"", ""E""]",
-Sheet2,Sheet2.csv,A2,A3,[2],[],
-Sheet3,Sheet3a.csv,A1,B3,[],"[""C""]",
-Sheet3,Sheet3b.csv,C3,H3,[],[],

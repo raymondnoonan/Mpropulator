@@ -57,7 +57,9 @@ def validateConfigRead(config):
                 'ignore']
 
     # check the column names
-    if not cols == colnames:
+    truthList = [x == y for x,y in zip(cols,colnames)]
+    compare = max(truthList)
+    if not compare:
         errorVal = ''.join(["Column names must be", str(colnames)])
         raise ValueError(errorVal)
 

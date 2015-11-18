@@ -38,4 +38,4 @@ def write_tab(sheet, table_data, xls_startcell, skiprows, skipcols):
 
             # This will not work if the numpy data type cannot be converted
             # easily into a native python one.
-            sheet[current_cell] = table_data.iloc[row_idx, col_idx].item()
+            sheet[current_cell].value = table_data.iloc[row_idx, col_idx].item()
