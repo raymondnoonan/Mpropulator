@@ -59,9 +59,6 @@ def validateConfigRead(config):
         errorVal = ''.join(["column names must be", str(colnames)])
         raise ValueError(errorVal)
 
-    checkFile = os.path.isfile
-    # TODO check that each of the csv files exist
-
 
 ######################################
 # Validations for config data

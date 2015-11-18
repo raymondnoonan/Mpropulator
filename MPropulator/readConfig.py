@@ -1,6 +1,6 @@
 import pandas as pd
 import os
-import validations as vd
+from MPropulator import validations as vd
 
 def readConfig(config):
     '''
@@ -21,10 +21,15 @@ def readConfig(config):
     # we need to parse these into lists
     split = str.split
     splitFunc = lambda x: split(x, ",")
+
+    def assertList(x):
+        assert(isinstance(x,list))
+
     parseConfig['skiprows'] = map(splitFunc, parseConfig['skiprows'])
     parseConfig['skipcols'] = map(splitFunc, parseConfig['skipcols'])
-    parseConfig['skiprows'].map(lambda x: assert(isinstance(x, list)))
-    parseConfig['skipcols'].map(lambda x: assert(isinstance(x, list)))
+
+    map(assertList, parseConfig['skiprows'])
+    map(assertList, parseConfig['skipcols'])
 
     # in addition, for the skiprows, we want these as ints, not strings
     def makeInt(array):

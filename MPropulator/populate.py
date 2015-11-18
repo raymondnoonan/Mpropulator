@@ -1,11 +1,11 @@
-import helpers
 import pandas as pd
 import openpyxl
 import os
 import string
-from writetab import write_tab
-from readConfig import readConfig
-import validations as vd
+from MPropulator import write_tab as wt
+from MPropulator import readConfig as rc
+from MPropulator import validations as vd
+from MPropulator import helpers
 
 
 def populate(config, shell_xls, output_xls=None):
@@ -26,7 +26,7 @@ def populate(config, shell_xls, output_xls=None):
 
     # Read in all our inputs
     workbook = openpyxl.load_workbook(shell_xls)
-    parsed_config = readConfig(configPath['file'])
+    parsed_config = rc.readConfig(configPath['file'])
     vd.validate_tabs(parsed_config)
 
     for enum, table in parsed_config.iterrows():
@@ -51,7 +51,7 @@ def populate(config, shell_xls, output_xls=None):
             table_data.drop(table_data.columns[cols_to_drop], axis=1,
                             inplace=True)
 
-            write_tab(sheet, table_data, table['tab_startcell'],
+            wt.write_tab(sheet, table_data, table['tab_startcell'],
                       table['skiprows'], table['skipcols'])
 
     workbook.save(output_xls)
