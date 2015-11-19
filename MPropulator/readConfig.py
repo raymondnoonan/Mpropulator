@@ -1,7 +1,6 @@
 import pandas as pd
 import os
 from MPropulator import validations as vd
-import ipdb
 
 def readConfig(config):
     '''
@@ -14,7 +13,6 @@ def readConfig(config):
             config file.
     '''
 
-    ipdb.set_trace()
     vd.validateConfigPath(config)
 
     parseConfig = pd.read_csv(config)

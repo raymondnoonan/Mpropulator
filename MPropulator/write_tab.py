@@ -1,11 +1,6 @@
 from MPropulator import helpers
-import pandas as pd
-import openpyxl
-import ast
 import string
-import os
-import re
-import warnings
+import ipdb
 
 
 def write_tab(sheet, table_data, xls_startcell, skiprows, skipcols):
@@ -18,19 +13,22 @@ def write_tab(sheet, table_data, xls_startcell, skiprows, skipcols):
     skiprows: list of rows in Excel spreadsheet to skip
     skipcols: list of columns in Excel spreadsheet to skip
     """
+    ipdb.set_trace()
+
     num_rows = table_data.shape[0]
     num_cols = table_data.shape[1]
 
-    start_row = int(xls_startcell.translate(None, string.ascii_letters))
+    # We subtract one to remain 0-indexed
+    start_row = int(xls_startcell.translate(None, string.ascii_letters)) - 1
     start_col = helpers.col_to_number(xls_startcell.translate(None,
                                                               string.digits))
 
     num_skipcols = [helpers.col_to_number(col) for col in skipcols]
 
-    rows_to_write = [row for row in range(start_row, start_row + num_rows) if
-                     row not in skiprows]
-    cols_to_write = [col for col in range(start_col, start_col + num_cols) if
-                     col not in num_skipcols]
+    rows_to_write = [row for row in range(start_row, start_row + num_rows
+                     + len(skiprows)) if row not in skiprows]
+    cols_to_write = [col for col in range(start_col, start_col + num_cols
+                     + len(skipcols)) if col not in num_skipcols]
 
     for row_idx, row in enumerate(rows_to_write):
         for col_idx, col in enumerate(cols_to_write):
