@@ -45,8 +45,6 @@ def populate(config, shell_xls, output_xls=None):
                 "in the same location as your output " % table['csv']
                 raise ValueError(error)
 
-            ipdb.set_trace()
-
             table_data = pd.read_csv(csvpath, skiprows=csv_start_row-1)
 
             csv_start_col = helpers.col_to_number(csv_start_col)

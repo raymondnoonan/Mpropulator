@@ -1,6 +1,5 @@
 from MPropulator import helpers
 import string
-import ipdb
 
 
 def write_tab(sheet, table_data, xls_startcell, skiprows, skipcols):
@@ -13,8 +12,6 @@ def write_tab(sheet, table_data, xls_startcell, skiprows, skipcols):
     skiprows: list of rows in Excel spreadsheet to skip
     skipcols: list of columns in Excel spreadsheet to skip
     """
-    ipdb.set_trace()
-
     num_rows = table_data.shape[0]
     num_cols = table_data.shape[1]
 
@@ -25,15 +22,22 @@ def write_tab(sheet, table_data, xls_startcell, skiprows, skipcols):
 
     num_skipcols = [helpers.col_to_number(col) for col in skipcols]
 
-    rows_to_write = [row for row in range(start_row, start_row + num_rows
-                     + len(skiprows)) if row not in skiprows]
-    cols_to_write = [col for col in range(start_col, start_col + num_cols
-                     + len(skipcols)) if col not in num_skipcols]
+    total_rows = start_row + num_rows + len(skiprows)
+    table_rows_to_write = [row for row in range(start_row, total_rows) if
+                           row not in skiprows]
 
-    for row_idx, row in enumerate(rows_to_write):
-        for col_idx, col in enumerate(cols_to_write):
+    total_cols = start_col + num_cols + len(skipcols)
+    table_cols_to_write = [col for col in range(start_col, total_cols) if
+                           col not in num_skipcols]
+
+    for row_idx, row in enumerate(table_rows_to_write):
+        for col_idx, col in enumerate(table_cols_to_write):
             current_cell = helpers.cell_name(row, col)
 
-            # This will not work if the numpy data type cannot be converted
-            # easily into a native python one.
-            sheet[current_cell].value = table_data.iloc[row_idx, col_idx].item()
+            value = table_data.iloc[row_idx, col_idx]
+            try:
+                value = float(value)
+            except ValueError:
+                pass
+
+            sheet[current_cell].value = value
