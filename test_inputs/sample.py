@@ -7,11 +7,10 @@ Created on Wed Dec 09 19:51:59 2015
 
 import sys
 import os
-sys.path.append(r"C:\Users\fsolleza\Desktop\Projects\Mpropulator")  
+sys.path.append(r"Path/to/containing/folder")  
 #%%
 import MPropulator as mpr
 
 #%%
-os.chdir(r"C:\Users\fsolleza\Desktop\Projects\Mpropulator\test_inputs")
 mpr.populate(shell_xls="newshell.xlsx", output_xls="test4.xlsx", config="csvs/blah.csv")
 
